@@ -20,7 +20,7 @@ body{
     color:#39ff14;
 }
 
-/* VIDEO FULLSCREEN */
+/* VIDEO */
 video{
     position:fixed;
     top:0;
@@ -31,7 +31,7 @@ video{
     filter:brightness(0.4);
 }
 
-/* SCANLINE EFFECT */
+/* SCANLINE */
 body::after{
     content:"";
     position:fixed;
@@ -41,15 +41,15 @@ body::after{
     height:100%;
     background:repeating-linear-gradient(
         to bottom,
-        rgba(0,255,0,0.05) 0px,
-        rgba(0,255,0,0.05) 2px,
+        rgba(0,255,0,0.04) 0px,
+        rgba(0,255,0,0.04) 2px,
         transparent 2px,
         transparent 4px
     );
     pointer-events:none;
 }
 
-/* POSISI TEKS */
+/* POSISI */
 .overlay{
     position:absolute;
     top:40px;
@@ -57,18 +57,18 @@ body::after{
     text-align:right;
 }
 
-/* GLITCH TEXT */
+/* TEKS */
 .glitch{
     position:relative;
     display:inline-block;
-    font-size:38px;
+
+    font-size:26px;
     font-weight:bold;
     color:#39ff14;
 
     text-shadow:
         0 0 5px #39ff14,
-        0 0 10px #39ff14,
-        0 0 20px #39ff14;
+        0 0 10px #39ff14;
 }
 
 /* EFEK KETIK */
@@ -77,15 +77,12 @@ body::after{
     overflow:hidden;
     white-space:nowrap;
 
-    /* KURSOR */
-    border-right:4px solid #00ff00;
-
-    /* GLOW KURSOR */
-    box-shadow:0 0 10px #00ff00;
+    /* CURSOR */
+    border-right:3px solid #00ff00;
 
     animation:
         typing 4s steps(22,end) forwards,
-        blink .6s infinite;
+        blink .7s infinite;
 }
 
 /* ANIMASI KETIK */
@@ -98,14 +95,14 @@ body::after{
     }
 }
 
-/* KURSOR BERKEDIP */
+/* CURSOR BLINK */
 @keyframes blink{
     50%{
         border-color:transparent;
     }
 }
 
-/* GLITCH DUPLIKAT */
+/* GLITCH */
 .glitch::before,
 .glitch::after{
     content:attr(data-text);
@@ -126,7 +123,6 @@ body::after{
     animation:glitchBottom 2s infinite;
 }
 
-/* GLITCH EFFECT */
 @keyframes glitchTop{
     0%,90%,100%{
         clip-path:inset(0 0 100% 0);
@@ -135,12 +131,12 @@ body::after{
 
     92%{
         clip-path:inset(0 0 60% 0);
-        transform:translate(-3px,-3px);
+        transform:translate(-2px,-2px);
     }
 
     94%{
         clip-path:inset(0 0 30% 0);
-        transform:translate(3px,3px);
+        transform:translate(2px,2px);
     }
 }
 
@@ -152,24 +148,23 @@ body::after{
 
     92%{
         clip-path:inset(60% 0 0 0);
-        transform:translate(3px,3px);
+        transform:translate(2px,2px);
     }
 
     94%{
         clip-path:inset(30% 0 0 0);
-        transform:translate(-3px,-3px);
+        transform:translate(-2px,-2px);
     }
 }
 
 /* SUBTEXT */
 p{
-    font-size:16px;
-    margin-top:10px;
+    font-size:14px;
+    margin-top:8px;
     color:#00ffcc;
 
     text-shadow:
-        0 0 5px #00ffcc,
-        0 0 10px #00ffcc;
+        0 0 5px #00ffcc;
 }
 
 </style>
@@ -177,16 +172,17 @@ p{
 
 <body>
 
-<!-- VIDEO -->
 <video autoplay muted loop playsinline>
     <source src="intro.mp4" type="video/mp4">
 </video>
 
-<!-- TEXT -->
 <div class="overlay">
 
-    <h1 class="glitch typing" data-text="WELCOME TO ANF CINEMA">
+    <h1 class="glitch typing"
+        data-text="WELCOME TO ANF CINEMA">
+
         WELCOME TO ANF CINEMA
+
     </h1>
 
     <p>Film Seru Isi Ilmu</p>
