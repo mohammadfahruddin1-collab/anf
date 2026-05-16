@@ -1,100 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ANF Cinema</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANF Cinema</title>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
 
-        body {
-            overflow: hidden;
-            font-family: monospace;
-            background: black;
-            color: #39ff14;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        /* VIDEO FULLSCREEN */
-        video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.4);
-        }
+body{
+    overflow:hidden;
+    font-family:Consolas, monospace;
+    background:black;
+    color:#39ff14;
+}
 
-        /* SCANLINE EFFECT */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.3) 0px,
-                rgba(0,0,0,0.3) 2px,
-                transparent 2px,
-                transparent 4px
-            );
-            pointer-events: none;
-        }
+/* VIDEO FULLSCREEN */
+video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.4);
+}
 
-        /* POSISI TEKS */
-        .overlay {
-            position: absolute;
-            top: 40px;
-            right: 50px;
-            text-align: right;
-        }
+/* SCANLINE EFFECT */
+body::after{
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:repeating-linear-gradient(
+        to bottom,
+        rgba(0,255,0,0.05) 0px,
+        rgba(0,255,0,0.05) 2px,
+        transparent 2px,
+        transparent 4px
+    );
+    pointer-events:none;
+}
 
-        /* GLITCH TEXT */
-        .glitch {
-            position: relative;
-            font-size: 32px;
-            font-weight: bold;
-            color: #39ff14;
-            text-shadow: 0 0 5px #39ff14, 0 0 15px #39ff14;
-        }
+/* POSISI TEKS */
+.overlay{
+    position:absolute;
+    top:40px;
+    right:50px;
+    text-align:right;
+}
 
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            left: 0;
-            width: 100%;
-            opacity: 0.8;
-        }
+/* GLITCH TEXT */
+.glitch{
+    position:relative;
+    display:inline-block;
+    font-size:38px;
+    font-weight:bold;
+    color:#39ff14;
 
-        .glitch::before {
-            color: red;
-            animation: glitchTop 2s infinite;
-        }
+    text-shadow:
+        0 0 5px #39ff14,
+        0 0 10px #39ff14,
+        0 0 20px #39ff14;
+}
 
-        .glitch::after {
-            color: blue;
-            animation: glitchBottom 2s infinite;
-        }
-        .typing{
+/* EFEK KETIK */
+.typing{
     width:0;
     overflow:hidden;
     white-space:nowrap;
 
-    /* KURSOR HACKER */
+    /* KURSOR */
     border-right:4px solid #00ff00;
 
-    /* EFEK KETIK */
-    animation:
-        typing 4s steps(30,end) forwards,
-        blink .6s infinite;
+    /* GLOW KURSOR */
+    box-shadow:0 0 10px #00ff00;
 
-    margin:auto;
+    animation:
+        typing 4s steps(22,end) forwards,
+        blink .6s infinite;
 }
 
 /* ANIMASI KETIK */
@@ -103,7 +94,7 @@
         width:0;
     }
     to{
-        width:100%;
+        width:22ch;
     }
 }
 
@@ -113,60 +104,94 @@
         border-color:transparent;
     }
 }
-        /* GLITCH RANDOM (tidak terus menerus) */
-        @keyframes glitchTop {
-            0%, 90%, 100% {
-                clip-path: inset(0 0 100% 0);
-                transform: none;
-            }
-            92% {
-                clip-path: inset(0 0 60% 0);
-                transform: translate(-3px, -3px);
-            }
-            94% {
-                clip-path: inset(0 0 30% 0);
-                transform: translate(3px, 3px);
-            }
-        }
 
-        @keyframes glitchBottom {
-            0%, 90%, 100% {
-                clip-path: inset(100% 0 0 0);
-                transform: none;
-            }
-            92% {
-                clip-path: inset(60% 0 0 0);
-                transform: translate(3px, 3px);
-            }
-            94% {
-                clip-path: inset(30% 0 0 0);
-                transform: translate(-3px, -3px);
-            }
-        }
+/* GLITCH DUPLIKAT */
+.glitch::before,
+.glitch::after{
+    content:attr(data-text);
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    opacity:0.8;
+}
 
-        /* SUBTEXT */
-        p {
-            font-size: 16px;
-            margin-top: 10px;
-            color: #00ffcc;
-            text-shadow: 0 0 5px #00ffcc;
-        }
+.glitch::before{
+    color:red;
+    animation:glitchTop 2s infinite;
+}
 
-    </style>
+.glitch::after{
+    color:blue;
+    animation:glitchBottom 2s infinite;
+}
+
+/* GLITCH EFFECT */
+@keyframes glitchTop{
+    0%,90%,100%{
+        clip-path:inset(0 0 100% 0);
+        transform:none;
+    }
+
+    92%{
+        clip-path:inset(0 0 60% 0);
+        transform:translate(-3px,-3px);
+    }
+
+    94%{
+        clip-path:inset(0 0 30% 0);
+        transform:translate(3px,3px);
+    }
+}
+
+@keyframes glitchBottom{
+    0%,90%,100%{
+        clip-path:inset(100% 0 0 0);
+        transform:none;
+    }
+
+    92%{
+        clip-path:inset(60% 0 0 0);
+        transform:translate(3px,3px);
+    }
+
+    94%{
+        clip-path:inset(30% 0 0 0);
+        transform:translate(-3px,-3px);
+    }
+}
+
+/* SUBTEXT */
+p{
+    font-size:16px;
+    margin-top:10px;
+    color:#00ffcc;
+
+    text-shadow:
+        0 0 5px #00ffcc,
+        0 0 10px #00ffcc;
+}
+
+</style>
 </head>
 
 <body>
 
-    <video autoplay muted loop playsinline>
-        <source src="intro.mp4" type="video/mp4">
-    </video>
+<!-- VIDEO -->
+<video autoplay muted loop playsinline>
+    <source src="intro.mp4" type="video/mp4">
+</video>
 
-    <div class="overlay">
-        <h1 class="glitch typing" data-text="WELCOME TO ANF CINEMA">
-            WELCOME TO ANF CINEMA
-        </h1>
-        <p>Film Seru Isi Ilmu</p>
-    </div>
+<!-- TEXT -->
+<div class="overlay">
+
+    <h1 class="glitch typing" data-text="WELCOME TO ANF CINEMA">
+        WELCOME TO ANF CINEMA
+    </h1>
+
+    <p>Film Seru Isi Ilmu</p>
+
+</div>
 
 </body>
 </html>
